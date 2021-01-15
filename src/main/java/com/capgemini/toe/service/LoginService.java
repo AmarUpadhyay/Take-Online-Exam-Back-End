@@ -1,5 +1,5 @@
 package com.capgemini.toe.service;
 
-public interface UserService {
+public interface LoginService {
 
 }

@@ -13,6 +13,12 @@ import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
+
 @Entity
 public class Test {
 	
@@ -24,6 +30,8 @@ public class Test {
 	private String testTitle;
 	
 	@NotNull
+	@JsonSerialize(using=LocalTimeSerializer.class)
+	@JsonDeserialize(using=LocalTimeDeserializer.class)
 	private LocalTime testDuration;
 	
 	@NotEmpty

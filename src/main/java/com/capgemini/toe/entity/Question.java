@@ -1,6 +1,4 @@
 package com.capgemini.toe.entity;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -24,7 +22,42 @@ public class Question {
 	
 	@NotNull
 	private String questionTitle;
-	private ArrayList<String> questionOptions;
+	private String optionA;
+	private String optionB;
+	private String optionC;
+	private String optionD;
+	public String getOptionA() {
+		return optionA;
+	}
+
+	public void setOptionA(String optionA) {
+		this.optionA = optionA;
+	}
+
+	public String getOptionB() {
+		return optionB;
+	}
+
+	public void setOptionB(String optionB) {
+		this.optionB = optionB;
+	}
+
+	public String getOptionC() {
+		return optionC;
+	}
+
+	public void setOptionC(String optionC) {
+		this.optionC = optionC;
+	}
+
+	public String getOptionD() {
+		return optionD;
+	}
+
+	public void setOptionD(String optionD) {
+		this.optionD = optionD;
+	}
+
 	private String correctAnswer;
 	private String chosenAnswer;
 	
@@ -34,6 +67,7 @@ public class Question {
 	
 	@Lob
 	@Type(type="org.hibernate.type.BinaryType")
+	@JsonIgnore
 	private byte[] answerFile;
 	
 	
@@ -51,14 +85,6 @@ public class Question {
 
 	public void setQuestionTitle(String questionTitle) {
 		this.questionTitle = questionTitle;
-	}
-
-	public ArrayList<String> getQuestionOptions() {
-		return questionOptions;
-	}
-
-	public void setQuestionOptions(ArrayList<String> questionOptions) {
-		this.questionOptions = questionOptions;
 	}
 
 	public String getCorrectAnswer() {
@@ -85,12 +111,17 @@ public class Question {
 		this.answerFile = answerFile;
 	}
 
-	public Question(long questionId, @NotNull String questionTitle, ArrayList<String> questionOptions,
-			String correctAnswer, String chosenAnswer, List<Test> tests, byte[] answerFile) {
+	
+
+	public Question(long questionId, @NotNull String questionTitle, String optionA, String optionB, String optionC,
+			String optionD, String correctAnswer, String chosenAnswer, List<Test> tests, byte[] answerFile) {
 		super();
 		this.questionId = questionId;
 		this.questionTitle = questionTitle;
-		this.questionOptions = questionOptions;
+		this.optionA = optionA;
+		this.optionB = optionB;
+		this.optionC = optionC;
+		this.optionD = optionD;
 		this.correctAnswer = correctAnswer;
 		this.chosenAnswer = chosenAnswer;
 		this.tests = tests;

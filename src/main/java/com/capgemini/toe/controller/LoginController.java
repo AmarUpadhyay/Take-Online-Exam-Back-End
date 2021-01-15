@@ -1,5 +1,5 @@
 package com.capgemini.toe.controller;
 
-public class UserController {
+public class LoginController {
 
 }

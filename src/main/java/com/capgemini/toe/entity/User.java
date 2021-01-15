@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -23,7 +22,8 @@ public class User {
 	
 	@NotNull
 	private String password;
-	private boolean isAdmin;
+	
+	private Boolean isAdmin;
 	
 	public User() {
 		super();
@@ -91,7 +91,7 @@ public class User {
 
 
 
-	public User(long userId, @NotNull String userName, @Email String userEmail, @NotNull @Min(8) String password,
+	public User(long userId, String userName, String userEmail,  String password,
 			boolean isAdmin) {
 		super();
 		this.userId = userId;
@@ -101,4 +101,7 @@ public class User {
 		this.isAdmin = isAdmin;
 	}
 
+
+
+	
 }
