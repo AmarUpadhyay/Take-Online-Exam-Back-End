@@ -1,5 +1,6 @@
 package com.capgemini.toe.service;
 
+import com.capgemini.toe.entity.CandidateTestsRecord;
 import com.capgemini.toe.entity.Test;
 import com.capgemini.toe.repository.CandidateTestsRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
