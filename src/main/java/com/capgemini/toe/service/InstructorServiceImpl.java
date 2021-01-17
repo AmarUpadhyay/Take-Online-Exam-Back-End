@@ -1,6 +1,5 @@
 package com.capgemini.toe.service;
 
-import java.time.LocalTime;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.capgemini.toe.entity.CandidateTestsRecord;
 import com.capgemini.toe.entity.Test;
+import com.capgemini.toe.exception.TestDoesNotExistException;
 import com.capgemini.toe.repository.CandidateTestsRecordRepository;
 import com.capgemini.toe.repository.TestRepository;
 
@@ -33,8 +33,11 @@ public class InstructorServiceImpl implements InstructorService{
 	}
 
 	@Override
-	public Test getTestByTestId(long testId) {
-		return testRepository.getOne(testId);
+	public Test getTestByTestId(long testId) throws TestDoesNotExistException{
+		if(testRepository.existsById(testId)) 
+			return testRepository.getOne(testId);
+		else
+			throw new TestDoesNotExistException();
 	}
 
 	@Override
@@ -50,7 +53,7 @@ public class InstructorServiceImpl implements InstructorService{
 	@Override
 	public CandidateTestsRecord assignTest(long userId, long testId) {
 		test=testRepository.getOne(testId);
-		LocalTime testDuration=test.getTestDuration();
+		int testDuration=test.getTestDuration();
 		candidateTestsRecord.setTestId(testId);
 		candidateTestsRecord.setUserId(userId);
 		candidateTestsRecord.setTestDuration(testDuration);

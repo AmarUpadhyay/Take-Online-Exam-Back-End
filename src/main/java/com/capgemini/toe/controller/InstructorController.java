@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.toe.entity.Test;
+import com.capgemini.toe.exception.TestDoesNotExistException;
 import com.capgemini.toe.service.InstructorService;
 
 @RestController
@@ -37,8 +38,10 @@ public class InstructorController {
 	}
 	
 	@DeleteMapping("/deleteTest/{testId}")
-	public void deleteTest(@PathVariable long testId){
-		instructorService.deleteTest(testId);
+	public void deleteTest(@PathVariable long testId) {
+		existingTest=instructorService.getTestByTestId(testId);
+		if(existingTest!=null) 
+			instructorService.deleteTest(testId);
 	}
 	
 	@PostMapping("/assignTest/{userId}/{testId}")
