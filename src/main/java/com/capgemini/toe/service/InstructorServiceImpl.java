@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.toe.entity.CandidateTestsRecord;
+import com.capgemini.toe.entity.Question;
 import com.capgemini.toe.entity.Test;
 import com.capgemini.toe.repository.CandidateTestsRecordRepository;
+import com.capgemini.toe.repository.QuestionRepository;
 import com.capgemini.toe.repository.TestRepository;
 
 @Service
@@ -22,6 +24,9 @@ public class InstructorServiceImpl implements InstructorService{
 	
 	@Autowired
 	private CandidateTestsRecordRepository candidateTestsRecordRepository;
+	
+	@Autowired
+	private QuestionRepository questionRepository;
 	
 	private CandidateTestsRecord candidateTestsRecord=new CandidateTestsRecord();
 	
@@ -61,6 +66,28 @@ public class InstructorServiceImpl implements InstructorService{
 	@Override
 	public List<Test> getAllTest() {
 		return testRepository.findAll();
+	}
+
+	@Override
+	public Question addQuestion(Question question) {
+		return questionRepository.save(question);
+	}
+
+	@Override
+	public void deleteQuestion(long questionId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Question> getQuestionBank() {
+		return questionRepository.findAll();
+	}
+
+	@Override
+	public Question updateQuestion() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

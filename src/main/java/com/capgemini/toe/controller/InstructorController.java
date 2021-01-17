@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.capgemini.toe.entity.Question;
 import com.capgemini.toe.entity.Test;
 import com.capgemini.toe.service.InstructorService;
 
@@ -27,6 +28,10 @@ public class InstructorController {
 	@PostMapping("/addTest")
 	public ResponseEntity<?> addTest(@RequestBody Test test){
 		return new ResponseEntity<Test>(instructorService.addTest(test),HttpStatus.OK);
+	}
+	@PostMapping("/addQuestion")
+	public ResponseEntity<?> adduestion(@RequestBody Question question){
+		return new ResponseEntity<Question>(instructorService.addQuestion(question),HttpStatus.OK);
 	}
 	
 	@PutMapping("/updateTest/{testId}")
@@ -49,5 +54,9 @@ public class InstructorController {
 	@GetMapping("/tests")
 	public ResponseEntity<?> getAllTest(){
 		return new ResponseEntity<>(instructorService.getAllTest(),HttpStatus.OK);
+	}
+	@GetMapping("/questions")
+	public ResponseEntity<?> getQuestionBank(){
+		return new ResponseEntity<>(instructorService.getQuestionBank(),HttpStatus.OK);
 	}
 }
