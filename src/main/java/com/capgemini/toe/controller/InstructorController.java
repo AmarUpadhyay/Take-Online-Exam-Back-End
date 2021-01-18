@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.toe.entity.Question;
 import com.capgemini.toe.entity.Test;
+import com.capgemini.toe.exception.QuestionNotFoundException;
 import com.capgemini.toe.service.InstructorService;
 
 @RestController
@@ -25,6 +26,8 @@ public class InstructorController {
 	private InstructorService instructorService;
 	
 	private Test existingTest=new Test();
+	private Question existingQuestion=new Question();
+	
 	@PostMapping("/addTest")
 	public ResponseEntity<?> addTest(@RequestBody Test test){
 		return new ResponseEntity<Test>(instructorService.addTest(test),HttpStatus.OK);
@@ -40,10 +43,23 @@ public class InstructorController {
 		BeanUtils.copyProperties(test, existingTest, "testId");
 		return new ResponseEntity<>(instructorService.updateTest(testId, existingTest),HttpStatus.OK);
 	}
+	@PutMapping("/updateQuestion/{questionId}")
+	public ResponseEntity<?> updateQuestion(@PathVariable long questionId,@RequestBody Question question)
+	{
+		existingQuestion=instructorService.getQuestionByquestionId(questionId);
+		BeanUtils.copyProperties(question,existingQuestion, "questionId");
+		return new ResponseEntity<>(instructorService.updateQuestion(questionId, existingQuestion),HttpStatus.OK);
+	}
 	
 	@DeleteMapping("/deleteTest/{testId}")
 	public void deleteTest(@PathVariable long testId){
 		instructorService.deleteTest(testId);
+	}
+	
+	@DeleteMapping("/deleteQuestion/{questionId}")
+	public void deleteQuestion(@PathVariable("questionId") long questionId) throws QuestionNotFoundException
+	{
+			instructorService.deleteQuestion(questionId);
 	}
 	
 	@PostMapping("/assignTest/{userId}/{testId}")
