@@ -1,14 +1,11 @@
 package com.capgemini.toe.entity;
 
-import java.time.LocalTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table(name="CandidateTestsRecord")
 public class CandidateTestsRecord {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
