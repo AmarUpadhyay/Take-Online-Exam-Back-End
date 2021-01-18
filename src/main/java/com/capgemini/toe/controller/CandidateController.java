@@ -13,15 +13,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/candidateController")
 public class CandidateController {
 
-    private static final Logger Log = LoggerFactory.getLogger(CandidateController.class);
-
-    @Autowired
-    private CandidateService candidateService;
-
-    @GetMapping("/tests")
-    public ResponseEntity<?> getAllTest(){
-        return new ResponseEntity<>(candidateService.getAllTest(), HttpStatus.OK);
-    }
+//    private static final Logger Log = LoggerFactory.getLogger(CandidateController.class);
+//
+//    @Autowired
+//    private CandidateService candidateService;
+//
+//    @GetMapping("/tests")
+//    public ResponseEntity<?> getAllTest(){
+//        return new ResponseEntity<>(candidateService.getAllTest(), HttpStatus.OK);
+//    }
 
 
 }

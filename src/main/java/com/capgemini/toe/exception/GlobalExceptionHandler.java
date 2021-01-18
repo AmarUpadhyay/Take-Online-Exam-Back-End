@@ -25,7 +25,14 @@ public class GlobalExceptionHandler {
 	}
 	
 	@ExceptionHandler(CandidateDoesNotExistException.class)
-	public ResponseEntity<?>TransactionNotFoundException(CandidateDoesNotExistException ex, WebRequest request) {
+	public ResponseEntity<?>CandidateNotFoundException(CandidateDoesNotExistException ex, WebRequest request) {
+		ex.setMessage("Candidate with this user id does not exist try different user id");
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(QuestionNotFoundException.class)
+	public ResponseEntity<?>QuestionNotFoundException(CandidateDoesNotExistException ex, WebRequest request) {
 		ex.setMessage("Candidate with this user id does not exist try different user id");
 		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
 		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
