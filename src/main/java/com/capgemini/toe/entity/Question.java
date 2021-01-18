@@ -24,6 +24,16 @@ public class Question {
 	private String optionB;
 	private String optionC;
 	private String optionD;
+	
+	@ManyToMany(mappedBy="questions")
+	@JsonIgnore
+	private List<Test> tests;
+	
+	@Lob
+	@Type(type="org.hibernate.type.BinaryType")
+	@JsonIgnore
+	private byte[] answerFile;
+	
 	public String getOptionA() {
 		return optionA;
 	}
@@ -59,14 +69,7 @@ public class Question {
 	private String correctAnswer;
 	private String chosenAnswer;
 	
-	@ManyToMany(mappedBy="questions")
-	@JsonIgnore
-	private List<Test> tests;
 	
-	@Lob
-	@Type(type="org.hibernate.type.BinaryType")
-	@JsonIgnore
-	private byte[] answerFile;
 	
 	
 	public long getQuestionId() {
