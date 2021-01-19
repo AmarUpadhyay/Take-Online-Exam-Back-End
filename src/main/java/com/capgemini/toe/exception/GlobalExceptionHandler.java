@@ -32,8 +32,14 @@ public class GlobalExceptionHandler {
 	}
 	
 	@ExceptionHandler(QuestionNotFoundException.class)
-	public ResponseEntity<?>QuestionNotFoundException(CandidateDoesNotExistException ex, WebRequest request) {
-		ex.setMessage("Candidate with this user id does not exist try different user id");
+	public ResponseEntity<?>QuestionNotFoundException(QuestionNotFoundException ex, WebRequest request) {
+		ex.setMessage("Question with this QuestionId does not exist try different QuestionId");
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+	}
+	@ExceptionHandler(QuestionBankEmptyException.class)
+	public ResponseEntity<?>QuestionBankEmptyException(QuestionBankEmptyException ex, WebRequest request) {
+		ex.setMessage("QuestionBank is Yet to Add By an Instructor");
 		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
 		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
 	}

@@ -1,5 +1,7 @@
 package com.capgemini.toe.controller;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,7 +36,8 @@ public class InstructorController {
 	}
 	@PostMapping("/addQuestion")
 	public ResponseEntity<?> adduestion(@RequestBody Question question){
-		return new ResponseEntity<Question>(instructorService.addQuestion(question),HttpStatus.OK);
+		instructorService.addQuestion(question);
+		return new ResponseEntity<>("Question Added SucessFully",HttpStatus.OK);
 	}
 	
 	@PutMapping("/updateTest/{testId}")
@@ -59,10 +62,10 @@ public class InstructorController {
 	}
 	
 	@DeleteMapping("/deleteQuestion/{questionId}")
-	public void deleteQuestion(@PathVariable("questionId") long questionId) 
+	public ResponseEntity<String> deleteQuestion(@PathVariable("questionId") long questionId) 
 	 throws QuestionNotFoundException{
-		
 			instructorService.deleteQuestion(questionId);
+			return new ResponseEntity<String>("Deleted Sucessfully",HttpStatus.ACCEPTED);
 	}
 	
 	@PostMapping("/assignTest/{userId}/{testId}")
@@ -75,7 +78,10 @@ public class InstructorController {
 		return new ResponseEntity<>(instructorService.getAllTest(),HttpStatus.OK);
 	}
 	@GetMapping("/questions")
-	public ResponseEntity<?> getQuestionBank(){
-		return new ResponseEntity<>(instructorService.getQuestionBank(),HttpStatus.OK);
+	public List<Question> getQuestionBank() throws QuestionNotFoundException{
+		List<Question> list=instructorService.getQuestionBank();
+		return list;
+
+
 	}
 }
