@@ -1,6 +1,7 @@
 package com.capgemini.toe.service;
 
 import com.capgemini.toe.entity.CandidateTestsRecord;
+import com.capgemini.toe.entity.Question;
 import com.capgemini.toe.entity.Test;
 
 import java.util.List;
@@ -11,6 +12,7 @@ public interface CandidateService {
       public Test getTestByTestId(long testId);
 
       public List<Test> getAllTest();
+      public Question getQuestionByquestionId(long questionId);
       public List<Test> getAllQuestions();      
 
       public Test submitTest(Test test);

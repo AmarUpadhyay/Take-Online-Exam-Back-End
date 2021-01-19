@@ -17,7 +17,6 @@ public class CandidateController {
     @Autowired
     private CandidateService candidateService;
 
-    @PostMapping("/takeTests")
 
 
     @GetMapping("/tests")

@@ -1,18 +1,16 @@
 package com.capgemini.toe.service;
 
 import com.capgemini.toe.entity.CandidateTestsRecord;
+import com.capgemini.toe.entity.Question;
 import com.capgemini.toe.entity.Test;
-import com.capgemini.toe.exception.TestDoesNotExistException;
 import com.capgemini.toe.repository.CandidateTestsRecordRepository;
+import com.capgemini.toe.repository.QuestionRepository;
 import com.capgemini.toe.repository.TestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
 @Service
-@Transactional
 public class CandidateServiceImpl implements CandidateService{
 
     @Autowired
@@ -21,28 +19,38 @@ public class CandidateServiceImpl implements CandidateService{
     @Autowired
     private CandidateTestsRecordRepository candidateTestsRecordRepository;
 
+
+    @Autowired
+    private QuestionRepository questionRepository;
+
+
     @Override
     public CandidateTestsRecord takeTest(long userId, Test test) {
-            CandidateTestsRecord tr = new CandidateTestsRecord();
-            tr.setUserId(userId);
-            tr.setTestId(test.getTestId());
-            tr = candidateTestsRecordRepository.save(tr);
-            return tr;
-        }
+        CandidateTestsRecord tr = new CandidateTestsRecord();
+        tr.setUserId(userId);
+        tr.setTestId(test.getTestId());
+        tr = candidateTestsRecordRepository.save(tr);
+        return tr;
+    }
+
+
 
 
     @Override
     public Test getTestByTestId(long testId) {
-        if(testRepository.existsById(testId))
-            return testRepository.getOne(testId);
-        else
-            throw new TestDoesNotExistException();
+        return testRepository.getOne(testId);
     }
 
     @Override
     public List<Test> getAllTest() {
         return testRepository.findAll();
     }
+
+    @Override
+    public Question getQuestionByquestionId(long questionId) {
+        return questionRepository.getOne(questionId);
+    }
+
 
     @Override
     public List<Test> getAllQuestions() {
