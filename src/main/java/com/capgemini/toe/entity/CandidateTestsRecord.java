@@ -1,6 +1,5 @@
 package com.capgemini.toe.entity;
 
-import java.time.LocalTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +13,7 @@ public class CandidateTestsRecord {
 	private long userId;
 	private long testId;
 	private double marksScored;
-	private LocalTime testDuration;
+	private int testDuration;
 	private int testStatus;
 	/**
 	 * if testStatus=0 assigned 
@@ -45,10 +44,10 @@ public class CandidateTestsRecord {
 	public void setMarksScored(double marksScored) {
 		this.marksScored = marksScored;
 	}
-	public LocalTime getTestDuration() {
+	public int getTestDuration() {
 		return testDuration;
 	}
-	public void setTestDuration(LocalTime testDuration) {
+	public void setTestDuration(int testDuration) {
 		this.testDuration = testDuration;
 	}
 	public int getTestStatus() {
@@ -57,7 +56,7 @@ public class CandidateTestsRecord {
 	public void setTestStatus(int testStatus) {
 		this.testStatus = testStatus;
 	}
-	public CandidateTestsRecord(long sequence, long userId, long testId, double marksScored, LocalTime testDuration,
+	public CandidateTestsRecord(long sequence, long userId, long testId, double marksScored, int testDuration,
 			int testStatus) {
 		super();
 		this.sequence = sequence;

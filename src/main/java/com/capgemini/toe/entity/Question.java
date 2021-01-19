@@ -8,9 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
-
 import org.hibernate.annotations.Type;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -26,6 +24,16 @@ public class Question {
 	private String optionB;
 	private String optionC;
 	private String optionD;
+	
+	@ManyToMany(mappedBy="questions")
+	@JsonIgnore
+	private List<Test> tests;
+	
+	@Lob
+	@Type(type="org.hibernate.type.BinaryType")
+	@JsonIgnore
+	private byte[] answerFile;
+	
 	public String getOptionA() {
 		return optionA;
 	}
@@ -61,14 +69,7 @@ public class Question {
 	private String correctAnswer;
 	private String chosenAnswer;
 	
-	@ManyToMany(mappedBy="questions")
-	@JsonIgnore
-	private List<Test> tests;
 	
-	@Lob
-	@Type(type="org.hibernate.type.BinaryType")
-	@JsonIgnore
-	private byte[] answerFile;
 	
 	
 	public long getQuestionId() {

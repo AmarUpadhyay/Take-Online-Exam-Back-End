@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.capgemini.toe.entity.Question;
 import com.capgemini.toe.entity.Test;
+import com.capgemini.toe.exception.QuestionNotFoundException;
 import com.capgemini.toe.service.InstructorService;
 
 @RestController
@@ -23,10 +25,16 @@ public class InstructorController {
 	@Autowired
 	private InstructorService instructorService;
 	
-		private Test existingTest=new Test();
+	private Test existingTest=new Test();
+	private Question existingQuestion=new Question();
+	
 	@PostMapping("/addTest")
 	public ResponseEntity<?> addTest(@RequestBody Test test){
 		return new ResponseEntity<Test>(instructorService.addTest(test),HttpStatus.OK);
+	}
+	@PostMapping("/addQuestion")
+	public ResponseEntity<?> adduestion(@RequestBody Question question){
+		return new ResponseEntity<Question>(instructorService.addQuestion(question),HttpStatus.OK);
 	}
 	
 	@PutMapping("/updateTest/{testId}")
@@ -35,13 +43,29 @@ public class InstructorController {
 		BeanUtils.copyProperties(test, existingTest, "testId");
 		return new ResponseEntity<>(instructorService.updateTest(testId, existingTest),HttpStatus.OK);
 	}
-	
-	@DeleteMapping("/deleteTest/{testId}")
-	public void deleteTest(@PathVariable long testId){
-		instructorService.deleteTest(testId);
+	@PutMapping("/updateQuestion/{questionId}")
+	public ResponseEntity<?> updateQuestion(@PathVariable long questionId,@RequestBody Question question)
+	{
+		existingQuestion=instructorService.getQuestionByquestionId(questionId);
+		BeanUtils.copyProperties(question,existingQuestion, "questionId");
+		return new ResponseEntity<>(instructorService.updateQuestion(questionId, existingQuestion),HttpStatus.OK);
 	}
 	
-	@PostMapping("/assignTest/{use	rId}/{testId}")
+	@DeleteMapping("/deleteTest/{testId}")
+	public void deleteTest(@PathVariable long testId) {
+		existingTest=instructorService.getTestByTestId(testId);
+		if(existingTest!=null) 
+			instructorService.deleteTest(testId);
+	}
+	
+	@DeleteMapping("/deleteQuestion/{questionId}")
+	public void deleteQuestion(@PathVariable("questionId") long questionId) 
+	 throws QuestionNotFoundException{
+		
+			instructorService.deleteQuestion(questionId);
+	}
+	
+	@PostMapping("/assignTest/{userId}/{testId}")
 	public ResponseEntity<?> assignTest(@PathVariable long userId,@PathVariable long testId){
 		return new ResponseEntity<>(instructorService.assignTest(userId, testId),HttpStatus.OK);
 	}
@@ -49,5 +73,9 @@ public class InstructorController {
 	@GetMapping("/tests")
 	public ResponseEntity<?> getAllTest(){
 		return new ResponseEntity<>(instructorService.getAllTest(),HttpStatus.OK);
+	}
+	@GetMapping("/questions")
+	public ResponseEntity<?> getQuestionBank(){
+		return new ResponseEntity<>(instructorService.getQuestionBank(),HttpStatus.OK);
 	}
 }

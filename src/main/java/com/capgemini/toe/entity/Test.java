@@ -1,6 +1,5 @@
 package com.capgemini.toe.entity;
 
-import java.time.LocalTime;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -13,11 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
+
 
 @Entity
 public class Test {
@@ -30,9 +25,7 @@ public class Test {
 	private String testTitle;
 	
 	@NotNull
-	@JsonSerialize(using=LocalTimeSerializer.class)
-	@JsonDeserialize(using=LocalTimeDeserializer.class)
-	private LocalTime testDuration;
+	private int testDuration;
 	
 	@NotEmpty
 	@ManyToMany
@@ -50,7 +43,7 @@ public class Test {
 		super();
 	}
 
-	public Test(long testId, String testTitle, LocalTime testDuration, Set<Question> questions, double testTotalMarks) {
+	public Test(long testId, String testTitle, int testDuration, Set<Question> questions, double testTotalMarks) {
 		super();
 		this.testId = testId;
 		this.testTitle = testTitle;
@@ -71,10 +64,10 @@ public class Test {
 	public void setTestTitle(String testTitle) {
 		this.testTitle = testTitle;
 	}
-	public LocalTime getTestDuration() {
+	public int getTestDuration() {
 		return testDuration;
 	}
-	public void setTestDuration(LocalTime testDuration) {
+	public void setTestDuration(int testDuration) {
 		this.testDuration = testDuration;
 	}
 	public Set<Question> getQuestions() {
