@@ -23,7 +23,7 @@ public class InstructorController {
 	@Autowired
 	private InstructorService instructorService;
 	
-	private Test existingTest=new Test();
+		private Test existingTest=new Test();
 	@PostMapping("/addTest")
 	public ResponseEntity<?> addTest(@RequestBody Test test){
 		return new ResponseEntity<Test>(instructorService.addTest(test),HttpStatus.OK);
@@ -41,7 +41,7 @@ public class InstructorController {
 		instructorService.deleteTest(testId);
 	}
 	
-	@PostMapping("/assignTest/{userId}/{testId}")
+	@PostMapping("/assignTest/{use	rId}/{testId}")
 	public ResponseEntity<?> assignTest(@PathVariable long userId,@PathVariable long testId){
 		return new ResponseEntity<>(instructorService.assignTest(userId, testId),HttpStatus.OK);
 	}

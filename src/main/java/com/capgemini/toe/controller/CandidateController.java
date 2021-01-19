@@ -1,6 +1,5 @@
 package com.capgemini.toe.controller;
 
-import com.capgemini.toe.entity.Test;
 import com.capgemini.toe.service.CandidateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,10 +17,17 @@ public class CandidateController {
     @Autowired
     private CandidateService candidateService;
 
+    @PostMapping("/takeTests")
+
+
     @GetMapping("/tests")
     public ResponseEntity<?> getAllTest(){
         return new ResponseEntity<>(candidateService.getAllTest(), HttpStatus.OK);
     }
 
+    @GetMapping("/questions")
+    public ResponseEntity<?> getAllQuestions(){
+        return new ResponseEntity<>(candidateService.getAllQuestions(), HttpStatus.OK);
+    }
 
 }

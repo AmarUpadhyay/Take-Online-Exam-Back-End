@@ -1,5 +1,6 @@
 package com.capgemini.toe.service;
 
+import com.capgemini.toe.entity.CandidateTestsRecord;
 import com.capgemini.toe.entity.Test;
 import com.capgemini.toe.repository.CandidateTestsRecordRepository;
 import com.capgemini.toe.repository.TestRepository;
@@ -16,14 +17,16 @@ public class CandidateServiceImpl implements CandidateService{
     private CandidateTestsRecordRepository candidateTestsRecordRepository;
 
     @Override
-    public boolean takeTest(long userId, Test test) {
-        return false;
-    }
+    public CandidateTestsRecord takeTest(long userId, Test test) {
+            CandidateTestsRecord tr = new CandidateTestsRecord();
+            tr.setUserId(userId);
+            tr.setTestId(test.getTestId());
+            tr = candidateTestsRecordRepository.save(tr);
+            return tr;
+        }
 
-    @Override
-    public double getResult(long userId, Test test) {
-        return 0;
-    }
+
+
 
     @Override
     public Test getTestByTestId(long testId) {
@@ -36,7 +39,12 @@ public class CandidateServiceImpl implements CandidateService{
     }
 
     @Override
-    public Test submitTest() {
-        return null;
+    public List<Test> getAllQuestions() {
+        return testRepository.findAll();
+    }
+
+    @Override
+    public Test submitTest(Test test) {
+        return testRepository.save(test);
     }
 }
