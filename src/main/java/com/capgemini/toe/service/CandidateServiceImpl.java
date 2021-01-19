@@ -5,9 +5,10 @@ import com.capgemini.toe.entity.Test;
 import com.capgemini.toe.repository.CandidateTestsRecordRepository;
 import com.capgemini.toe.repository.TestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class CandidateServiceImpl implements CandidateService{
 
     @Autowired
