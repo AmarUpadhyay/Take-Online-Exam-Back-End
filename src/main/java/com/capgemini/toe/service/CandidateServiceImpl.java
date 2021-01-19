@@ -2,12 +2,17 @@ package com.capgemini.toe.service;
 
 import com.capgemini.toe.entity.CandidateTestsRecord;
 import com.capgemini.toe.entity.Test;
+import com.capgemini.toe.exception.TestDoesNotExistException;
 import com.capgemini.toe.repository.CandidateTestsRecordRepository;
 import com.capgemini.toe.repository.TestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
+@Transactional
 public class CandidateServiceImpl implements CandidateService{
 
     @Autowired
@@ -26,11 +31,12 @@ public class CandidateServiceImpl implements CandidateService{
         }
 
 
-
-
     @Override
     public Test getTestByTestId(long testId) {
-        return testRepository.getOne(testId);
+        if(testRepository.existsById(testId))
+            return testRepository.getOne(testId);
+        else
+            throw new TestDoesNotExistException();
     }
 
     @Override
