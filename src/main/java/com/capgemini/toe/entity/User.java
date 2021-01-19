@@ -25,7 +25,12 @@ public class User {
 	@NotNull
 	private String password;
 	
-	private Boolean isAdmin;
+	@NotNull
+	private String role;
+	/**
+	 * 1.Candidate
+	 * 2.Instructor
+	 */
 	
 	public User() {
 		super();
@@ -81,29 +86,27 @@ public class User {
 
 
 
-	public boolean isAdmin() {
-		return isAdmin;
+	public String getRole() {
+		return role;
 	}
 
 
 
-	public void setAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 
 
-	public User(long userId, String userName, String userEmail,  String password,
-			boolean isAdmin) {
+	public User(long userId, @NotNull String userName, @Email String userEmail, @NotNull String password,
+			@NotNull String role) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
 		this.userEmail = userEmail;
 		this.password = password;
-		this.isAdmin = isAdmin;
+		this.role = role;
 	}
-
-
 
 	
 }

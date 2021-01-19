@@ -15,13 +15,18 @@ public class CandidateController {
 
 //    private static final Logger Log = LoggerFactory.getLogger(CandidateController.class);
 //
-//    @Autowired
-//    private CandidateService candidateService;
+    @Autowired   
+    private CandidateService candidateService;
 //
 //    @GetMapping("/tests")
 //    public ResponseEntity<?> getAllTest(){
 //        return new ResponseEntity<>(candidateService.getAllTest(), HttpStatus.OK);
 //    }
+    @GetMapping("/candidateTestsRecord")
+	public ResponseEntity<?> getCandidateTestsRecord(){
+		return new ResponseEntity<>(candidateService.getCandidateTestsRecord(),HttpStatus.OK);
+	}
 
+	
 
 }

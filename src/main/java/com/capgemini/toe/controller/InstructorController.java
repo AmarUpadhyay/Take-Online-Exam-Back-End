@@ -30,11 +30,12 @@ public class InstructorController {
 	
 	@PostMapping("/addTest")
 	public ResponseEntity<?> addTest(@RequestBody Test test){
-		return new ResponseEntity<Test>(instructorService.addTest(test),HttpStatus.OK);
+		return new ResponseEntity<Test>(instructorService.addTest(test),HttpStatus.CREATED);
 	}
+	
 	@PostMapping("/addQuestion")
 	public ResponseEntity<?> adduestion(@RequestBody Question question){
-		return new ResponseEntity<Question>(instructorService.addQuestion(question),HttpStatus.OK);
+		return new ResponseEntity<Question>(instructorService.addQuestion(question),HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/updateTest/{testId}")
@@ -43,9 +44,9 @@ public class InstructorController {
 		BeanUtils.copyProperties(test, existingTest, "testId");
 		return new ResponseEntity<>(instructorService.updateTest(testId, existingTest),HttpStatus.OK);
 	}
+	
 	@PutMapping("/updateQuestion/{questionId}")
-	public ResponseEntity<?> updateQuestion(@PathVariable long questionId,@RequestBody Question question)
-	{
+	public ResponseEntity<?> updateQuestion(@PathVariable long questionId,@RequestBody Question question){
 		existingQuestion=instructorService.getQuestionByquestionId(questionId);
 		BeanUtils.copyProperties(question,existingQuestion, "questionId");
 		return new ResponseEntity<>(instructorService.updateQuestion(questionId, existingQuestion),HttpStatus.OK);
@@ -74,8 +75,15 @@ public class InstructorController {
 	public ResponseEntity<?> getAllTest(){
 		return new ResponseEntity<>(instructorService.getAllTest(),HttpStatus.OK);
 	}
+	
 	@GetMapping("/questions")
 	public ResponseEntity<?> getQuestionBank(){
 		return new ResponseEntity<>(instructorService.getQuestionBank(),HttpStatus.OK);
 	}
+	
+	@GetMapping("/candidates")
+	public ResponseEntity<?> getAllCandidate(){
+		return new ResponseEntity<>(instructorService.getAllCandidate(),HttpStatus.OK);
+	}
+	
 }

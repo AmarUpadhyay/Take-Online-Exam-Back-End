@@ -1,9 +1,13 @@
 package com.capgemini.toe.entity;
 
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class CandidateTestsRecord {
@@ -11,9 +15,12 @@ public class CandidateTestsRecord {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private long sequence;
 	private long userId;
-	private long testId;
+	
+	@NotEmpty
+	@OneToOne
+	@JoinTable(name="candidate_test_id")
+	private Test tests;
 	private double marksScored;
-	private int testDuration;
 	private int testStatus;
 	/**
 	 * if testStatus=0 assigned 
@@ -32,11 +39,11 @@ public class CandidateTestsRecord {
 	public void setUserId(long userId) {
 		this.userId = userId;
 	}
-	public long getTestId() {
-		return testId;
+	public Test getTests() {
+		return tests;
 	}
-	public void setTestId(long testId) {
-		this.testId = testId;
+	public void setTests(Test tests) {
+		this.tests = tests;
 	}
 	public double getMarksScored() {
 		return marksScored;
@@ -44,26 +51,20 @@ public class CandidateTestsRecord {
 	public void setMarksScored(double marksScored) {
 		this.marksScored = marksScored;
 	}
-	public int getTestDuration() {
-		return testDuration;
-	}
-	public void setTestDuration(int testDuration) {
-		this.testDuration = testDuration;
-	}
 	public int getTestStatus() {
 		return testStatus;
 	}
 	public void setTestStatus(int testStatus) {
 		this.testStatus = testStatus;
 	}
-	public CandidateTestsRecord(long sequence, long userId, long testId, double marksScored, int testDuration,
+	
+	public CandidateTestsRecord(long sequence, long userId, @NotEmpty Test tests, double marksScored,
 			int testStatus) {
 		super();
 		this.sequence = sequence;
 		this.userId = userId;
-		this.testId = testId;
+		this.tests = tests;
 		this.marksScored = marksScored;
-		this.testDuration = testDuration;
 		this.testStatus = testStatus;
 	}
 	public CandidateTestsRecord() {

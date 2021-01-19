@@ -10,8 +10,10 @@ import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Type;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Question {
 
 	@Id
@@ -24,6 +26,7 @@ public class Question {
 	private String optionB;
 	private String optionC;
 	private String optionD;
+	private double questionMarks;
 	
 	@ManyToMany(mappedBy="questions")
 	@JsonIgnore
@@ -111,11 +114,21 @@ public class Question {
 	public void setAnswerFile(byte[] answerFile) {
 		this.answerFile = answerFile;
 	}
+	
+	public double getQuestionMarks() {
+		return questionMarks;
+	}
+
+	public void setQuestionMarks(double questionMarks) {
+		this.questionMarks = questionMarks;
+	}
 
 	
 
+
 	public Question(long questionId, @NotNull String questionTitle, String optionA, String optionB, String optionC,
-			String optionD, String correctAnswer, String chosenAnswer, List<Test> tests, byte[] answerFile) {
+			String optionD, double questionMarks, List<Test> tests, byte[] answerFile, String correctAnswer,
+			String chosenAnswer) {
 		super();
 		this.questionId = questionId;
 		this.questionTitle = questionTitle;
@@ -123,10 +136,11 @@ public class Question {
 		this.optionB = optionB;
 		this.optionC = optionC;
 		this.optionD = optionD;
-		this.correctAnswer = correctAnswer;
-		this.chosenAnswer = chosenAnswer;
+		this.questionMarks = questionMarks;
 		this.tests = tests;
 		this.answerFile = answerFile;
+		this.correctAnswer = correctAnswer;
+		this.chosenAnswer = chosenAnswer;
 	}
 
 	public List<Test> getTests() {

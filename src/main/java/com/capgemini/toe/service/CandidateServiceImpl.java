@@ -1,12 +1,19 @@
 package com.capgemini.toe.service;
 
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.capgemini.toe.entity.CandidateTestsRecord;
 import com.capgemini.toe.entity.Test;
 import com.capgemini.toe.repository.CandidateTestsRecordRepository;
 import com.capgemini.toe.repository.TestRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
-
+@Service
+@Transactional
 public class CandidateServiceImpl implements CandidateService{
 
     @Autowired
@@ -39,4 +46,9 @@ public class CandidateServiceImpl implements CandidateService{
     public Test submitTest() {
         return null;
     }
+
+	@Override
+	public List<CandidateTestsRecord> getCandidateTestsRecord() {
+		return candidateTestsRecordRepository.findAll();
+	}
 }
