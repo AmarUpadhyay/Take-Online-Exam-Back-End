@@ -28,5 +28,14 @@ public class CandidateController {
     public ResponseEntity<?> getAllQuestions(){
         return new ResponseEntity<>(candidateService.getAllQuestions(), HttpStatus.OK);
     }
-
+    @GetMapping("/test/{testId}")
+    public ResponseEntity<?> getTestByTestId(@PathVariable long testId){
+    	return new ResponseEntity<>(candidateService.getTestByTestId(testId), HttpStatus.OK);
+    	
+    }
+    @GetMapping("/question/questionId}")
+    public ResponseEntity<?> getQuestiontByquestionId(@PathVariable long questionId){
+    	return new ResponseEntity<>(candidateService.getQuestionByquestionId(questionId), HttpStatus.OK);
+    	
+    }
 }
