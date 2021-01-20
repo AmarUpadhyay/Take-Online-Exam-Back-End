@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface QuestionRepository extends JpaRepository<Question,Long>{
 
-    @Query("select q from TestOnline t,Questions q where q.test=t.testId and t.testId=:testId")
-    public List<Question> getUserQuestion(@Param("testId")int testId);
+    @Query("select q from Test t,Questions q where q.test=t.testId and t.testId=:testId")
+    public List<Question> getUserQuestion(@Param("testId")long testId);
 
 }

@@ -70,6 +70,8 @@ public class CandidateTestsRecord {
 	public CandidateTestsRecord() {
 		super();
 	}
-	
-	
+
+
+	public void setTestId(long testId) {
+	}
 }
