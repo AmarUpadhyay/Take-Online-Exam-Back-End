@@ -11,6 +11,9 @@ public interface CandidateService {
       public CandidateTestsRecord takeTest(long userId, Test test);
       public Test getTestByTestId(long testId);
 
+      int calculateTotalTestMarks(long testId);
+
+      int calculateMarks(Question q);
       public List<Test> getAllTest();
       public Question getQuestionByquestionId(long questionId);
       public List<Test> getAllQuestions();      

@@ -19,6 +19,13 @@ public class CandidateController {
 
 
 
+    //get results
+    @GetMapping("/getResult/{testId}")
+    public int getResults(@PathVariable(value="testId") int testId)
+    {
+        return user.calculateTotalTestMarks(testId);
+    }
+
     @GetMapping("/tests")
     public ResponseEntity<?> getAllTest(){
         return new ResponseEntity<>(candidateService.getAllTest(), HttpStatus.OK);
