@@ -5,6 +5,7 @@ import java.util.List;
 import com.capgemini.toe.entity.CandidateTestsRecord;
 import com.capgemini.toe.entity.Question;
 import com.capgemini.toe.entity.Test;
+import com.capgemini.toe.entity.User;
 import com.capgemini.toe.exception.TestDoesNotExistException;
 import com.capgemini.toe.exception.QuestionNotFoundException;
 
@@ -16,6 +17,7 @@ public interface InstructorService {
 	public void deleteTest(long testId);
 	public CandidateTestsRecord assignTest(long userId,long testId);
 	public List<Test> getAllTest();
+	public List<User> getAllCandidate();
 	
 	public Question addQuestion(Question question);
 	public void deleteQuestion(long questionId) throws QuestionNotFoundException;

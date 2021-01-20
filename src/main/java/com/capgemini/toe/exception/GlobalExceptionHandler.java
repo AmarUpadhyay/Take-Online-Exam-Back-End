@@ -1,16 +1,24 @@
 package com.capgemini.toe.exception;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.validation.ConstraintViolationException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 
 @ControllerAdvice
-public class GlobalExceptionHandler {
+@ResponseBody
+public class GlobalExceptionHandler{
+	
 	@ExceptionHandler(TestDoesNotExistException.class)
 	public ResponseEntity<?> resourceNotFoundException(TestDoesNotExistException ex, WebRequest request) {
 		ex.setMessage("Test with this id does not exist try different test id");
@@ -43,11 +51,23 @@ public class GlobalExceptionHandler {
 		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
 		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
 	}
-	
 	@ExceptionHandler(LoginError.class)
 	public ResponseEntity<?> resourceNotFoundException(LoginError ex, WebRequest request) {
 		ex.setMessage("Wrong Email or password Login Again");
 		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
 		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
 	}
+	@ExceptionHandler(ConstraintViolationException.class)
+    public final ResponseEntity<ErrorInfo> handleConstraintViolation(
+                                            ConstraintViolationException ex,
+                                            WebRequest request)
+    {
+        List<String> details = ex.getConstraintViolations()
+                                    .parallelStream()
+                                    .map(e -> e.getMessage())
+                                    .collect(Collectors.toList());
+ 
+        ErrorInfo error = new ErrorInfo("BAD_REQUEST", details);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
 }
