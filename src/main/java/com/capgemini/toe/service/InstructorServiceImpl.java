@@ -14,6 +14,7 @@ import com.capgemini.toe.entity.Question;
 import com.capgemini.toe.entity.Test;
 import com.capgemini.toe.entity.User;
 import com.capgemini.toe.exception.TestDoesNotExistException;
+import com.capgemini.toe.exception.QuestionBankEmptyException;
 import com.capgemini.toe.exception.QuestionNotFoundException;
 import com.capgemini.toe.repository.CandidateTestsRecordRepository;
 import com.capgemini.toe.repository.QuestionRepository;
@@ -84,14 +85,20 @@ public class InstructorServiceImpl implements InstructorService{
 
 
 	@Override
-	public List<Question> getQuestionBank() {
-		return questionRepository.findAll();
+	public List<Question> getQuestionBank() throws QuestionBankEmptyException {
+		List<Question>questionBank=questionRepository.findAll();
+		if(questionBank.isEmpty())
+		{
+			throw new QuestionBankEmptyException();
+		}
+		else
+			return questionBank;
 	}
 
 	@Override
 	public void deleteQuestion(long questionId) throws QuestionNotFoundException {
 		Optional<Question> question=questionRepository.findById(questionId);
-		if(question==null)
+		if(question.isEmpty())
 			throw new QuestionNotFoundException();
 		else
 			questionRepository.deleteById(questionId);

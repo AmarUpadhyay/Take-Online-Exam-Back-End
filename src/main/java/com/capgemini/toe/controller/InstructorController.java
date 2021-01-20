@@ -60,10 +60,10 @@ public class InstructorController {
 	}
 	
 	@DeleteMapping("/deleteQuestion/{questionId}")
-	public void deleteQuestion(@PathVariable("questionId") long questionId) 
+	public ResponseEntity<String> deleteQuestion(@PathVariable("questionId") long questionId) 
 	 throws QuestionNotFoundException{
-		
 			instructorService.deleteQuestion(questionId);
+			return new ResponseEntity<String>("Deleted Sucessfully",HttpStatus.ACCEPTED);
 	}
 	
 	@PostMapping("/assignTest/{userId}/{testId}")

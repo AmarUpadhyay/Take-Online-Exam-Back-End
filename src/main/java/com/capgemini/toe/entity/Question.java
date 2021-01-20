@@ -7,7 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import org.hibernate.annotations.Type;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -20,12 +25,34 @@ public class Question {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private long questionId;
 	
-	@NotNull
+	@NotNull(message="Question title cannot be  null")
+	@NotEmpty(message="Question title cannot be empty")
+	@Size(min=50,max=150,message="Question title must be between 50 to 150 char long")
 	private String questionTitle;
+	
+	@NotNull(message="Options cannot be  null")
+	@NotEmpty(message="Question message cannot be empty")
+	@Size(min=5,max=15,message="Question title must be between 5 to 15 char long")
 	private String optionA;
+	
+	@NotNull(message="Options cannot be  null")
+	@NotEmpty(message="Question message cannot be empty")
+	@Size(min=5,max=15,message="Question title must be between 5 to 15 char long")
 	private String optionB;
+	
+	@NotNull(message="Options cannot be  null")
+	@NotEmpty(message="Question message cannot be empty")
+	@Size(min=5,max=15,message="Question title must be between 5 to 15 char long")
 	private String optionC;
+	
+	@NotNull(message="Options cannot be  null")
+	@NotEmpty(message="Question message cannot be empty")
+	@Size(min=5,max=15,message="Question title must be between 5 to 15 char long")
 	private String optionD;
+	
+	@NotNull(message="Question title cannot be  null")
+	@Min(value=1,message="min question marks of Question should not be lessthan 1")
+	@Max(value=10,message="max question marks of Question should not be greaterthan 10")
 	private double questionMarks;
 	
 	@ManyToMany(mappedBy="questions")
