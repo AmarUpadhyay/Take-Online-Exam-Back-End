@@ -38,6 +38,12 @@ public class GlobalExceptionHandler{
 		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
 		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
 	}
+	@ExceptionHandler(UserAlreadyExistsException.class)
+	public ResponseEntity<?>UserAlreadyExistsException(UserAlreadyExistsException ex, WebRequest request) {
+		ex.setMessage("User Already exists with this userEmail");
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+	}
 	
 	@ExceptionHandler(QuestionNotFoundException.class)
 	public ResponseEntity<?>QuestionNotFoundException(QuestionNotFoundException ex, WebRequest request) {
