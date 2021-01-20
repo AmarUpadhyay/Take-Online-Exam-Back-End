@@ -19,6 +19,7 @@ public interface InstructorService {
 	public List<Test> getAllTest();
 	public List<User> getAllCandidate();
 	
+	public boolean checkIfQuestionsExist(Question question);
 	public Question addQuestion(Question question);
 	public void deleteQuestion(long questionId) throws QuestionNotFoundException;
 	public List<Question> getQuestionBank();
