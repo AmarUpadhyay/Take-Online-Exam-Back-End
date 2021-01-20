@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.capgemini.toe.entity.User;
 import com.capgemini.toe.exception.UserAlreadyExistsException;
+import com.capgemini.toe.exception.UserDoesNotExistException;
 import com.capgemini.toe.repository.UserRepository;
 @Service
 public class LoginServiceImp implements LoginService{
@@ -24,12 +25,23 @@ public class LoginServiceImp implements LoginService{
 			return userRepository.save(user);
 	}
 
-	@Override
+  @Override
 	public User updateuser(long userId, User user) {
 		// TODO Auto-generated method stub
 		return null;
+	}         
+                
+	@Override
+	public User getUserByUserId(long userId) throws UserDoesNotExistException{
+		if(userRepository.existsById(userId)) 
+			return userRepository.getOne(userId);
+		else
+			throw new UserDoesNotExistException();
 	}
-
+	@Override
+	public User updateUserProfile(long userId,User user) {
+		return userRepository.saveAndFlush(user);
+	}
 	@Override
 	public boolean checkIfUserExist(String userEmail) {
 		List<User> userList=userRepository.findAll();
