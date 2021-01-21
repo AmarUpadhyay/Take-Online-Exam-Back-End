@@ -27,27 +27,27 @@ public class Question {
 	
 	@NotNull(message="Question title cannot be  null")
 	@NotEmpty(message="Question title cannot be empty")
-	@Size(min=50,max=150,message="Question title must be between 50 to 150 char long")
+	@Size(min=8,max=200,message="Question title must be between 8 to 200 char long")
 	private String questionTitle;
 	
 	@NotNull(message="Options cannot be  null")
-	@NotEmpty(message="Question message cannot be empty")
-	@Size(min=5,max=15,message="Question title must be between 5 to 15 char long")
+	@NotEmpty(message="Question Options cannot be empty")
+	@Size(min=1,max=15,message="Question title must be between 1 to 15 char long")
 	private String optionA;
 	
 	@NotNull(message="Options cannot be  null")
-	@NotEmpty(message="Question message cannot be empty")
-	@Size(min=5,max=15,message="Question title must be between 5 to 15 char long")
+	@NotEmpty(message="Question Options cannot be empty")
+	@Size(min=1,max=15,message="Question title must be between 1 to 15 char long")
 	private String optionB;
 	
 	@NotNull(message="Options cannot be  null")
-	@NotEmpty(message="Question message cannot be empty")
-	@Size(min=5,max=15,message="Question title must be between 5 to 15 char long")
+	@NotEmpty(message="Question Options cannot be empty")
+	@Size(min=1,max=15,message="Question title must be between 1 to 15 char long")
 	private String optionC;
 	
 	@NotNull(message="Options cannot be  null")
-	@NotEmpty(message="Question message cannot be empty")
-	@Size(min=5,max=15,message="Question title must be between 5 to 15 char long")
+	@NotEmpty(message="Question Options cannot be empty")
+	@Size(min=1,max=15,message="Question title must be between 1 to 15 char long")
 	private String optionD;
 	
 	@NotNull(message="Question title cannot be  null")
