@@ -11,6 +11,10 @@ public interface CandidateService {
       public CandidateTestsRecord takeTest(long userId, Test test);
       public Test getTestByTestId(long testId);
 
+      public long getResult(long userId, Test test);
+
+      public List<CandidateTestsRecord> getCandidateTestsRecord();
+      public List<CandidateTestsRecord> getcandiateTestRecordByUserId(long userId);
 
       public List<Test> getAllTest();
       public Question getQuestionByquestionId(long questionId);

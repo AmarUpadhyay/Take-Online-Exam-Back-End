@@ -9,9 +9,13 @@ import com.capgemini.toe.repository.TestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 @Service
-public class CandidateServiceImpl implements CandidateService{
+public class CandidateServiceImpl implements CandidateService {
 
     @Autowired
     private TestRepository testRepository;
@@ -24,21 +28,54 @@ public class CandidateServiceImpl implements CandidateService{
 
     @Override
     public CandidateTestsRecord takeTest(long userId, Test test) {
-        CandidateTestsRecord tr = new CandidateTestsRecord();
-        tr.setUserId(userId);
-        tr.setTestId(test.getTestId());
-        tr = candidateTestsRecordRepository.save(tr);
-        return tr;
+        CandidateTestsRecord attemptedTest = new CandidateTestsRecord();
+        attemptedTest.setUserId(userId);
+        attemptedTest.setTests(test);
+        attemptedTest.setTestStatus(1);
+        return candidateTestsRecordRepository.saveAndFlush(attemptedTest);
     }
+
+    @Override
+    public long getResult(long userId, Test test)
+    {
+        Set<Question> attemptedQuestions=new HashSet<Question>();
+        attemptedQuestions.addAll(test.getQuestions());
+        long scoredMarks=0;
+        for(Question question:attemptedQuestions)
+        {
+            if(question.getChosenAnswer().equals(question.getCorrectAnswer()))
+            {
+                scoredMarks+=question.getQuestionMarks();
+            }
+        }
+        return scoredMarks;
+
+    }
+
+
+    @Override
+    public List<CandidateTestsRecord> getCandidateTestsRecord(){
+        return candidateTestsRecordRepository.findAll();
+    }
+
+    @Override
+    public List<CandidateTestsRecord> getcandiateTestRecordByUserId(long userId){
+        List<CandidateTestsRecord> allRecord=new ArrayList<CandidateTestsRecord>();
+        List<CandidateTestsRecord> candidateRecord=new ArrayList<CandidateTestsRecord>();
+        allRecord.addAll(candidateTestsRecordRepository.findAll());
+        for(CandidateTestsRecord testRecord:allRecord)
+        {
+            if(testRecord.getUserId()==userId)
+                candidateRecord.add(testRecord);
+        }
+        return candidateRecord;
+    }
+
 
     @Override
     public Test getTestByTestId(long testId) {
         return testRepository.getOne(testId);
     }
-
-
-
-
 
     @Override
     public List<Test> getAllTest() {
@@ -54,6 +91,7 @@ public class CandidateServiceImpl implements CandidateService{
     public List<Test> getAllQuestions() {
         return testRepository.findAll();
     }
+
 
     @Override
     public Test submitTest(Test test) {
