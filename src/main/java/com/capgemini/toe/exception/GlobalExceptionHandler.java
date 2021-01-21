@@ -38,6 +38,19 @@ public class GlobalExceptionHandler{
 		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
 		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
 	}
+	@ExceptionHandler(UserAlreadyExistsException.class)
+	public ResponseEntity<?>UserAlreadyExistsException(UserAlreadyExistsException ex, WebRequest request) {
+		ex.setMessage("User Already exists with this userEmail");
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+	}
+	@ExceptionHandler(UserDoesNotExistException.class)
+	public ResponseEntity<?> resourceNotFoundException(UserDoesNotExistException ex, WebRequest request) {
+		ex.setMessage("User with this id does not exist try different user id");
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+	}
+	
 	
 	@ExceptionHandler(QuestionNotFoundException.class)
 	public ResponseEntity<?>QuestionNotFoundException(QuestionNotFoundException ex, WebRequest request) {
@@ -48,6 +61,12 @@ public class GlobalExceptionHandler{
 	@ExceptionHandler(QuestionBankEmptyException.class)
 	public ResponseEntity<?>QuestionBankEmptyException(QuestionBankEmptyException ex, WebRequest request) {
 		ex.setMessage("QuestionBank is Yet to Add By an Instructor");
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+	}
+	@ExceptionHandler(QuestionAlreadyExistsException.class)
+	public ResponseEntity<?>QuestionAlreadyExistsException(QuestionAlreadyExistsException ex, WebRequest request) {
+		ex.setMessage("Question Already Present");
 		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
 		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
 	}

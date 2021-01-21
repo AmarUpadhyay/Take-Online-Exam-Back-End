@@ -14,6 +14,7 @@ import com.capgemini.toe.entity.Question;
 import com.capgemini.toe.entity.Test;
 import com.capgemini.toe.entity.User;
 import com.capgemini.toe.exception.TestDoesNotExistException;
+import com.capgemini.toe.exception.QuestionAlreadyExistsException;
 import com.capgemini.toe.exception.QuestionBankEmptyException;
 import com.capgemini.toe.exception.QuestionNotFoundException;
 import com.capgemini.toe.repository.CandidateTestsRecordRepository;
@@ -79,8 +80,28 @@ public class InstructorServiceImpl implements InstructorService{
 	}
 
 	@Override
+	public boolean checkIfQuestionsExist(Question question) {
+		List<Question> questionBank=questionRepository.findAll();
+		for(Question questionData:questionBank)
+		{
+			if(questionData.getQuestionTitle().contentEquals(question.getQuestionTitle()))
+			{
+				return true;
+			}
+			else
+				return false;
+		}
+		return false;
+	}
+
+	@Override
 	public Question addQuestion(Question question) {
-		return questionRepository.save(question);
+		if(checkIfQuestionsExist(question))
+		{
+			throw new QuestionAlreadyExistsException();
+		}
+		else
+			return questionRepository.save(question);
 	}
 
 
