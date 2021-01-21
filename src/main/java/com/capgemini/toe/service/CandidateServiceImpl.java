@@ -22,7 +22,6 @@ public class CandidateServiceImpl implements CandidateService{
     @Autowired
     private QuestionRepository questionRepository;
 
-
     @Override
     public CandidateTestsRecord takeTest(long userId, Test test) {
         CandidateTestsRecord tr = new CandidateTestsRecord();
@@ -32,45 +31,14 @@ public class CandidateServiceImpl implements CandidateService{
         return tr;
     }
 
-
-
-
     @Override
     public Test getTestByTestId(long testId) {
         return testRepository.getOne(testId);
     }
 
-    @Override
-    public int calculateTotalTestMarks(long testId) {
-        Test t=testRepository.getOne(testId);
-        Question q1;
-        List<Question> uq;
-        uq=questionRepository.getUserQuestion(testId);
-        int total=0;
-        int n=uq.size();
-        for(int i=0;i<n;i++) {
-            q1=uq.get(i);
-            calculateMarks(q1);
-            total+=q1.getMarksScored();
-        }
-        t.setTestMarksScored(total);
-        return total;
 
-    }
 
-    @Override
-    public long calculateMarks(Question q) {
-        int score = 0;
-        if(q.getChosenAnswer().equalsIgnoreCase(q.getChosenAnswer()))
-        {
-            score=score+2;
-        }
-        else {
-            score=score+0;
-        }
-        q.setMarksScored(score);
-        return score;
-    }
+
 
     @Override
     public List<Test> getAllTest() {

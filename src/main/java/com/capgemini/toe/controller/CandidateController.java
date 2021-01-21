@@ -1,6 +1,9 @@
 package com.capgemini.toe.controller;
 
+import com.capgemini.toe.entity.Question;
+import com.capgemini.toe.entity.Test;
 import com.capgemini.toe.service.CandidateService;
+import com.capgemini.toe.service.InstructorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +19,6 @@ public class CandidateController {
 
     @Autowired
     private CandidateService candidateService;
-
-
-
-    //get results
-    @GetMapping("/getResult/{testId}")
-    public int getResults(@PathVariable(value="testId") int testId)
-    {
-        return user.calculateTotalTestMarks(testId);
-    }
 
     @GetMapping("/tests")
     public ResponseEntity<?> getAllTest(){

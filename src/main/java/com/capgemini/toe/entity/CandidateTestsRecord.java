@@ -11,6 +11,7 @@ import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class CandidateTestsRecord {
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private long sequence;
@@ -20,7 +21,9 @@ public class CandidateTestsRecord {
 	@OneToOne
 	@JoinTable(name="candidate_test_id")
 	private Test tests;
+
 	private double marksScored;
+
 	private int testStatus;
 	/**
 	 * if testStatus=0 assigned 
